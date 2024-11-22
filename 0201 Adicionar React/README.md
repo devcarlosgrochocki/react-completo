@@ -1,83 +1,47 @@
-# 🚀 Meu Aprendizado em React - Adicionando React no HTML sem NPM
+# Aula 0201 - Adicionando React no HTML sem NPM
 
-Este repositório documenta o processo de aprendizado sobre como configurar e utilizar o React diretamente em um arquivo HTML sem a necessidade de ferramentas como NPM ou Webpack. Este método utiliza bibliotecas do React carregadas via CDN, sendo ideal para iniciantes compreenderem os fundamentos do React.
-
----
-
-## 🗂 Estrutura do Diretório
-
-- `index.html`: O arquivo principal contendo a implementação do React diretamente no HTML, usando `<script type="text/babel">`.
+Nesta aula, aprendemos como configurar e executar React diretamente em um arquivo HTML, sem a necessidade de ferramentas como NPM ou Webpack. O foco foi entender como carregar e utilizar React e JSX utilizando bibliotecas via **CDN**.
 
 ---
 
-## 📚 Aula: Adicionando React no HTML sem NPM
+## 🎯 Objetivo da Aula
 
-### Objetivo
-O objetivo desta aula foi aprender a configurar e utilizar o React em um projeto simples sem depender de ferramentas de build como Webpack ou NPM, carregando as bibliotecas via CDN e criando componentes React básicos.
+- Renderizar componentes React diretamente no navegador.
+- Configurar um ambiente básico de React utilizando apenas um arquivo HTML.
+- Criar componentes React simples com estado (`useState`).
 
 ---
 
-## 🔧 Configuração e Código
+## 📄 Estrutura do Código
 
-### 1. Carregando as Bibliotecas
-As bibliotecas React, React DOM e Babel foram carregadas via CDN:
+### 1. **Carregando as Bibliotecas**
+As bibliotecas do React e Babel foram carregadas via **CDN**, diretamente no `<head>` do HTML:
+
 ```html
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 ```
 
-- **React**: A biblioteca principal para criar componentes e gerenciar o estado.
-- **React DOM**: Para renderizar os componentes React na árvore DOM do navegador.
-- **Babel**: Permite usar JSX diretamente no navegador.
+- **React**: Biblioteca principal para criação de interfaces de usuário.
+- **React DOM**: Permite a manipulação da árvore DOM usando componentes React.
+- **Babel**: Transforma JSX em JavaScript puro compreensível pelos navegadores.
 
----
+### 2. **Estrutura HTML**
+O HTML contém um único `<div>` com o `id="root"`, que serve como ponto de entrada para os componentes React:
 
-### 2. Estrutura HTML
-O arquivo contém uma `<div>` com o `id="root"`, onde os componentes React serão renderizados:
 ```html
 <div id="root"></div>
 ```
 
----
-
-### 3. Código React
-O código React foi implementado dentro de um `<script type="text/babel">` para permitir o uso de JSX:
-
-```jsx
-function App() {
-  return (
-    <div>
-      <h1>Aplicativo React</h1>
-      <Button />
-      <Button />
-    </div>
-  );
-}
-
-function Button() {
-  const [total, setTotal] = React.useState(0);
-
-  return <button onClick={() => setTotal(total + 1)}>Adicionar {total}</button>;
-}
-
-const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
-root.render(<App />);
-```
-
-#### Explicação do Código
-1. **Componente `App`**:
-   - Componente principal que renderiza um título e dois botões.
-2. **Componente `Button`**:
-   - Usa o **React Hook** `useState` para gerenciar o estado local de cada botão.
-   - Cada botão começa com o contador `0` e incrementa o valor ao clicar.
-3. **Renderização**:
-   - A função `ReactDOM.createRoot` monta o componente `App` na `<div id="root">`.
+### 3. **Componente React**
+Dois componentes foram criados:
+- `App`: Componente principal que contém dois botões.
+- `Button`: Um botão que incrementa um valor ao ser clicado. Cada botão mantém seu próprio estado.
 
 ---
 
-## 📄 Código Completo
+## 💻 Código Completo
 
 ```html
 <!DOCTYPE html>
@@ -92,8 +56,6 @@ root.render(<App />);
   <!-- Carrega o React, React Dom e Babel -->
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-  <!-- Don't use this in production: -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 </head>
@@ -103,25 +65,29 @@ root.render(<App />);
 
   <script type="text/babel">
     function App() {
-      return <div>
+      return (
+        <div>
           <h1>Aplicativo React</h1>
           <Button />
           <Button />
         </div>
+      );
     }
 
     function Button() {
-      const [total, setTotal] = React.useState(0)
+      const [total, setTotal] = React.useState(0);
 
-      return <button onClick={() => setTotal(total + 1)}>Adicionar {total}</button>
+      return (
+        <button onClick={() => setTotal(total + 1)}>
+          Adicionar {total}
+        </button>
+      );
     }
 
-    const container = document.getElementById("root")
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
 
-    const root = ReactDOM.createRoot(container)
-
-    root.render(<App />)
-
+    root.render(<App />);
   </script>
 </body>
 
@@ -130,31 +96,35 @@ root.render(<App />);
 
 ---
 
-## 🌟 O que Aprendi
+## 🧠 O que Aprendi
 
-1. **Instância Independente de Estado**:
-   - Cada botão possui seu próprio estado independente ao usar `useState` dentro do componente.
-   - Cada instância do componente `Button` é isolada e mantém seu próprio contador.
+1. **Configuração Básica**:
+   - Como carregar React e Babel diretamente no navegador via CDN.
+   - Como criar uma estrutura básica para renderizar componentes React.
 
-2. **Uso Básico de JSX**:
-   - A sintaxe JSX foi utilizada para criar elementos HTML de forma declarativa.
+2. **Criação de Componentes**:
+   - Uso de funções para criar componentes React (`App` e `Button`).
+   - Uso de `React.useState` para gerenciar o estado local de cada componente.
 
-3. **Renderização React no Navegador**:
-   - Utilizando o React DOM para montar os componentes na árvore DOM de forma eficiente.
+3. **Isolamento de Estado**:
+   - Cada instância do componente `Button` possui seu próprio estado isolado, mesmo que compartilhem o mesmo código.
+
+---
+
+## 🌟 Próximos Passos
+
+- Aprender sobre **props** para passar dados entre componentes.
+- Explorar como o estado pode ser compartilhado entre diferentes componentes (estado global).
+- Avançar para uma configuração utilizando ferramentas como **Create React App**.
 
 ---
 
 ## 🌐 Referências
 
-- [Documentação Oficial do React](https://reactjs.org/docs/getting-started.html)
-- [CDN de React no UNPKG](https://unpkg.com/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [UNPKG CDN](https://unpkg.com/)
+- [Babel Standalone](https://babeljs.io/docs/en/babel-standalone)
 
 ---
 
-## 📜 Histórico de Atualizações
-
-| Aula           | Tópico                       | Descrição                                                |
-|-----------------|------------------------------|---------------------------------------------------------|
-| `0201`         | Adicionar React no HTML      | Implementação de um exemplo básico de React no HTML.    |
-
----
+Este é um exercício inicial com React e JSX. A abordagem é ideal para quem está começando e deseja entender os fundamentos antes de avançar para configurações mais complexas!
