@@ -27,10 +27,7 @@ Cada pasta contém:
 
 | Aula           | Tópico                       | Descrição                                                |
 |-----------------|------------------------------|---------------------------------------------------------|
-| `0101`         | Configuração do Ambiente     | Como configurar o ambiente para trabalhar com React.    |
 | `0201`         | Adicionar React no HTML      | Renderizando componentes React diretamente no HTML.     |
-| `0301`         | Componentes e Props          | Criando componentes reutilizáveis e trabalhando com props. |
-| `0401`         | Estado e Eventos             | Gerenciando estado e lidando com eventos no React.      |
 
 ---
 
