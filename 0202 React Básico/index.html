@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="React Básico">
+  <title>React Básico</title>
+
+  <!-- Carrega o React, React Dom e Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const Button = () => <button>Comprar</button>
+
+    const MainNav = () => {
+      return (
+        <nav>
+          <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+          </ul>
+        </nav>
+      );
+    };
+
+    const Produtos = () => {
+      function handleClick(event) {
+        console.log('Comprou:' + event.target.innerText);
+      }
+
+      return (
+        <div>
+          <button onClick={handleClick}>Camisa</button>
+          <button onClick={handleClick}>Bermuda</button>
+        </div>
+      );
+    };
+
+    const Compras = () => {
+      //useState é um Hook que define uma variável reativa
+      const [count, setCount] = React.useState(0);
+
+      function handleClick() {
+        setCount(count + 1)
+
+        setTimeout(() => console.log(count), 2000)
+      }
+
+      return (
+        <div>
+          <button onClick={handleClick}>Comprar: {count}</button>
+          <p>Total: {count}</p>
+          <p>Preço: R$ {count * 250}</p>
+        </div>
+      )
+    }
+
+    const App = () => {
+      return (
+        <div>
+          <MainNav />
+          <Produtos />
+          <Button />
+          <Compras />
+        </div>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+
+    root.render(<App />)
+
+
+  </script>
+</body>
+
+</html>
