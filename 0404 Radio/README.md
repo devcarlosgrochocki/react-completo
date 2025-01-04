@@ -1,54 +1,79 @@
-### Documentação do Projeto: **0403 Select**
+### Documentação do Projeto: **0404 Radio**
 
 ---
 
 ## 📖 Visão Geral
 
-Nesta aula, exploramos o componente **`select`** em React. Aprendemos como utilizar o **`value`** e o evento **`onChange`** para criar um **select controlado**, além de definir um valor inicial e opções interativas para o usuário.
+Nesta aula, aprendemos a criar e gerenciar **inputs do tipo radio** em formulários React. Exploramos como usar o atributo **`checked`** para determinar qual botão está selecionado e como organizar diferentes grupos de opções, cada um com seu próprio estado.
 
 ---
 
 ## 🎯 Objetivo do Projeto
 
-1. Criar e gerenciar um componente **`select`** utilizando estados controlados.
-2. Definir um valor inicial para o **select** através do **`useState`**.
-3. Garantir que o usuário escolha uma opção válida ao usar um valor inicial desabilitado.
-4. Exibir o valor selecionado dinamicamente na interface.
+1. Criar um grupo de **radio buttons** gerenciado por estado.
+2. Usar o atributo **`checked`** para comparar o valor selecionado com os valores disponíveis.
+3. Implementar diferentes grupos de **radio buttons**, cada um com seu próprio estado.
+4. Garantir a reatividade e a sincronização entre o estado e a interface.
 
 ---
 
 ## 📄 Estrutura do Projeto
 
 **Arquitetura:**
-- Uso de `useState` para gerenciar o valor do **select**.
-- Integração com o evento **`onChange`** para atualizar o estado ao selecionar uma opção.
-- Diferentes abordagens para definir valores iniciais.
+- Cada grupo de **radio buttons** é gerenciado com um estado específico.
+- O evento **`onChange`** é utilizado para atualizar o estado com o valor selecionado.
+- O valor selecionado é exibido dinamicamente.
 
 **Componentes Criados:**
-1. **App.jsx:** Componente principal com os exemplos de **select**.
+1. **App.jsx:** Componente principal contendo exemplos com um único grupo de **radio buttons** e com grupos distintos.
 
 ---
 
 ## 🔧 Código Principal
 
-### **Exemplo 1: Select com Valor Inicial Definido**
+### **Exemplo 1: Um Grupo de Radio Buttons**
 
-Neste exemplo, o valor inicial do **select** é definido diretamente no estado.
+Neste exemplo, um único estado gerencia o valor selecionado.
 
 ```jsx
 import React from 'react';
 
 const App = () => {
-  const [select, setSelect] = React.useState('smartphone');
+  const [radio, setRadio] = React.useState('');
+
+  function handleChange({ target }) {
+    setRadio(target.value);
+  }
 
   return (
     <form>
-      <select value={select} onChange={({ target }) => setSelect(target.value)}>
-        <option value="notebook">Notebook</option>
-        <option value="smartphone">Smartphone</option>
-        <option value="tablet">Tablet</option>
-      </select>
-      <p>{select}</p>
+      <label>
+        <input
+          type="radio"
+          value="notebook"
+          checked={radio === 'notebook'}
+          onChange={handleChange}
+        />
+        Notebook
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="smartphone"
+          checked={radio === 'smartphone'}
+          onChange={handleChange}
+        />
+        Smartphone
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="tablet"
+          checked={radio === 'tablet'}
+          onChange={handleChange}
+        />
+        Tablet
+      </label>
     </form>
   );
 };
@@ -56,27 +81,58 @@ const App = () => {
 export default App;
 ```
 
-### **Exemplo 2: Select com Placeholder Desabilitado**
+### **Exemplo 2: Diferentes Grupos de Radio Buttons**
 
-Neste exemplo, o valor inicial é desabilitado, forçando o usuário a selecionar uma opção válida.
+Aqui, cada grupo de **radio buttons** possui seu próprio estado, permitindo múltiplas seleções independentes.
 
 ```jsx
 import React from 'react';
 
 const App = () => {
-  const [select, setSelect] = React.useState('');
+  const [produto, setProduto] = React.useState('');
+  const [cor, setCor] = React.useState('');
 
   return (
     <form>
-      <select value={select} onChange={({ target }) => setSelect(target.value)}>
-        <option value="" disabled>
-          Selecione
-        </option>
-        <option value="notebook">Notebook</option>
-        <option value="smartphone">Smartphone</option>
-        <option value="tablet">Tablet</option>
-      </select>
-      <p>{select}</p>
+      <h2>Dispositivo</h2>
+      <label>
+        <input
+          type="radio"
+          value="notebook"
+          checked={produto === 'notebook'}
+          onChange={({ target }) => setProduto(target.value)}
+        />
+        Notebook
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="smartphone"
+          checked={produto === 'smartphone'}
+          onChange={({ target }) => setProduto(target.value)}
+        />
+        Smartphone
+      </label>
+
+      <h2>Cor</h2>
+      <label>
+        <input
+          type="radio"
+          value="azul"
+          checked={cor === 'azul'}
+          onChange={({ target }) => setCor(target.value)}
+        />
+        Azul
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="vermelho"
+          checked={cor === 'vermelho'}
+          onChange={({ target }) => setCor(target.value)}
+        />
+        Vermelho
+      </label>
     </form>
   );
 };
@@ -88,34 +144,32 @@ export default App;
 
 ## 🧠 O que Aprendi
 
-1. **Select Controlado:**
-   - Utilizar o atributo **`value`** para controlar a opção selecionada no **select**.
-   - Gerenciar o valor do **select** com o estado do React para maior flexibilidade.
+1. **Radio Buttons Controlados:**
+   - O atributo **`checked`** é usado para comparar o valor selecionado com o valor de cada botão.
 
-2. **Eventos de Alteração (`onChange`):**
-   - Atualizar o estado com o valor selecionado usando o evento **`onChange`**.
+2. **Estados Separados para Grupos:**
+   - Cada grupo de **radio buttons** pode ser gerenciado por um estado independente, permitindo maior modularidade.
 
-3. **Valores Iniciais:**
-   - Definir um valor inicial direto no estado.
-   - Usar uma opção desabilitada como placeholder para guiar o usuário.
+3. **Reatividade:**
+   - As alterações nos **radio buttons** são refletidas instantaneamente na interface através do estado do React.
 
 ---
 
 ## 🌟 Destaques
 
-1. **Interatividade:**
-   - O valor do **select** é exibido dinamicamente, tornando a interface mais responsiva.
+1. **Personalização por Grupos:**
+   - Possibilidade de gerenciar múltiplos grupos de **radio buttons** independentemente.
 
-2. **Usabilidade Melhorada:**
-   - Placeholder desabilitado ajuda a garantir que o usuário selecione uma opção válida.
+2. **Feedback Dinâmico:**
+   - O valor selecionado é exibido em tempo real na interface.
 
 3. **Flexibilidade:**
-   - Fácil adaptação para diferentes cenários de uso.
+   - Fácil expansão para incluir mais grupos ou opções dentro de um grupo.
 
 ---
 
 ## 🌐 Próximos Passos
 
-1. Adicionar validação para garantir que o usuário escolha uma opção antes de enviar o formulário.
-2. Personalizar o estilo do **select** para melhorar a experiência do usuário.
-3. Implementar o **select** em um formulário completo com integração a uma API.
+1. Adicionar validações para garantir que o usuário selecione uma opção antes de enviar o formulário.
+2. Estilizar os **radio buttons** para uma experiência de usuário mais agradável.
+3. Integrar os valores dos **radio buttons** com outros componentes em um formulário completo.
